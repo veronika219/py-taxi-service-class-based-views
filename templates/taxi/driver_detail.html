@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h4 class="сard-title mb-3">
+        {{ driver.first_name }} {{ driver.last_name }}
+      </h4>
+      <p class="mb-2"><strong>Username:</strong> {{ driver.username }}</p>
+      <p class="mb-2"><strong>Email: </strong> {{ driver.email }}</p>
+      <p class="mb-2"><strong>License: </strong>{{ driver.license_number }}</p>
+      <p class="text-muted mb-0"><strong>Joined:</strong> {{ driver.date_joined }}</p>
+    </div>
+  </div>
+  <h3 class="mb-3">Car{{ driver.cars.count|pluralize }}</h3>
+  {% for car in driver.cars.all %}
+    <div class="card mb-3 border-secondary">
+      <div class="card-body">
+        <h5 class="card-title">{{ car.model }}</h5>
+        <p class="card-text"><strong>Manufacturer: </strong>{{ car.manufacturer.name }}</p>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">No cars assigned.</p>
+  {% endfor %}
+{% endblock %}
