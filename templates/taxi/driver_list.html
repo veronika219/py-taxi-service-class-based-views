@@ -1,10 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1> Driver List:</h1>
-  <ul>
-    {% for driver in driver_list %}
-      <li><a href="{{ driver.get_absolute_url }}">{{ driver.username }}</a></li>
-    {% endfor %}
-  </ul>
+
+  {% if driver_list %}
+    <table class="table table-hover align-middle">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Водій</th>
+        <th>Ліцензія</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for driver in driver_list %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            <a href="{% url 'taxi:driver-detail' pk=driver.pk %}">
+              {{ driver.username }}
+            </a>
+          </td>
+          <td>
+            {{ driver.license_number }}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    Водіїв немає
+  {% endif %}
 {% endblock %}

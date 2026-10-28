@@ -1,10 +1,36 @@
 {% extends "base.html" %}
 
+
 {% block content %}
-  <h1>Manufactures List:</h1>
-  <ul>
-    {% for manufacture in manufacturer_list %}
-      <li>{{ manufacture.name }} {{ manufacture.country }}</li>
+  <table class="table table-hover align-center">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Виробництво</th>
+      <th>Країна</th>
+      <th>Машини</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for manufacturer in manufacturer_list %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ manufacturer.name }}</td>
+        <td>{{ manufacturer.country }}</td>
+        <td>
+          {% for car in manufacturer.cars.all %}
+            {{ car.model }}
+            {% if not forloop.last %}, {% endif %}
+          {% empty %}
+            Машин немає
+          {% endfor %}
+        </td>
+      </tr>
+    {% empty %}
+      <td colspan="3" class="align-content-center text-muted p-4"></td>
     {% endfor %}
-  </ul>
+
+
+    </tbody>
+  </table>
 {% endblock %}
