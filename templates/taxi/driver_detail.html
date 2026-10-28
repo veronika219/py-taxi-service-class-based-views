@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="mb-3">{{ driver.username }}</h1>
+
+  <p class="text-muted">
+    {{ driver.first_name }} {{ driver.last_name }}
+    <br>
+    {% if driver.license_number %}
+      Ліцензія: {{ driver.license_number }}
+    {% endif %}
+  </p>
+
+  <h2 class="h4 mt-4">Машини водія:</h2>
+
+  <table class="table align-content-center table-hover ">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Модель</th>
+      <th>Виробник</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for car in driver.cars.all %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ car.model }}</td>
+        <td>{{ car.manufacturer.name }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3" class="align-content-center text-muted p-4">Машин немає</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
