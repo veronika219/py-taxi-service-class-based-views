@@ -1,3 +1,4 @@
+from django.views import generic
 from django.shortcuts import render
 from django.views import generic
 
@@ -12,7 +13,6 @@ def index(request):
         "num_cars": Car.objects.count(),
         "num_manufacturers": Manufacturer.objects.count(),
     }
-
     return render(request, "taxi/index.html", context=context)
 
 
@@ -39,4 +39,4 @@ class DriverListView(generic.ListView):
 
 class DriverDetailView(generic.DetailView):
     model = Driver
-    queryset = Driver.objects.prefetch_related("cars")
+    queryset = Driver.objects.prefetch_related("cars__manufacturer")

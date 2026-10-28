@@ -1,48 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1 class="mb-3">{{ car.model }}</h1>
+  <div class="container mt-5">
+    <h1 class="mb-4 text-primary">Car model: {{ car.model }}</h1>
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Manufacturer info</h5>
+        <p class="card-body">
+          <strong>Name:</strong> {{ car.manufacturer.name }}<br>
+          <strong>Country:</strong> {{ car.manufacturer.country }}
+        </p>
+      </div>
+    </div>
 
-  <p class="text-muted">
-    Виробництво: {{ car.manufacturer.name }}
-    <br>
-    Країна: {{ car.manufacturer.country }}
-  </p>
-
-  <h2 class="h4 mt-4">
-    {% if car.drivers.all|pluralize %}
-      Водії:
-    {% else %}
-      Водій:
-    {% endif %}
-
-  </h2>
-
-  <table class="table">
-    <thead>
-    <tr>
-      <th>#</th>
-      <th>Username</th>
-      <th>Ім'я</th>
-      <th>Прізвище</th>
-      <th>Ліцензія</th>
-    </tr>
-    </thead>
-
-    <tbody>
+    <h3 class="mb-3">Driver{{ car.drivers.count|pluralize }}</h3>
     {% for driver in car.drivers.all %}
-      <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ driver.username }}</td>
-        <td>{{ driver.first_name }}</td>
-        <td>{{ driver.last_name }}</td>
-        <td>{{ driver.license_number }}</td>
-      </tr>
+      <div class="card mb-3 border-secondary">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ driver.first_name }} {{ driver.last_name }}
+          </h5>
+          <p class="card-text">
+            <strong>Lisense number: </strong>{{ driver.license_number }}
+          </p>
+        </div>
+      </div>
     {% empty %}
-      <tr>
-        <td colspan="3" class="text-muted">Немає водіїв</td>
-      </tr>
+      <p class="text-muted">No drivers assigned.</p>
     {% endfor %}
-    </tbody>
-  </table>
+  </div>
 {% endblock %}
+

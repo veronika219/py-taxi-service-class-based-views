@@ -1,14 +1,6 @@
 from django.urls import path
 
-from .views import (
-    index,
-    ManufacturerListView,
-    CarDetailView,
-    CarListView,
-    DriverListView,
-    DriverDetailView
-)
-
+from .views import index, ManufacturerListView, CarListView, CarDetailView, DriverListView, DriverDetailView
 
 urlpatterns = [
     path("", index, name="index"),
@@ -16,8 +8,7 @@ urlpatterns = [
     path("cars/", CarListView.as_view(), name="car-list"),
     path("cars/<int:pk>/", CarDetailView.as_view(), name="car-detail"),
     path("drivers/", DriverListView.as_view(), name="driver-list"),
-    path("drivers/<int:pk>/", DriverDetailView.as_view(), name="driver-detail"),
-
+    path("drivers/<int:pk>/", DriverDetailView.as_view(), name="driver-detail")
 ]
 
 app_name = "taxi"
